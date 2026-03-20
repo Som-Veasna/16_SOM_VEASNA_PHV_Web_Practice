@@ -1,8 +1,13 @@
 import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function GET() {
     const students = await prisma.studentTable.findMany();
-    return Response.json(students, { status: 200 });
+    return NextResponse.json({
+        success: true,
+        message: "Get student successfully.",
+        payload: students,
+    });
 }
 
 export async function POST(request) {
@@ -14,5 +19,9 @@ export async function POST(request) {
             class: body.class
         }
     });
-    return Response.json(student, { status: 201 });
+    return NextResponse.json({
+        success: true,
+        message: "Create student successfully.",
+        payload: student,
+    });
 }
